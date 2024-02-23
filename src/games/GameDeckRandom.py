@@ -1,6 +1,4 @@
 from Game import Game
-from Deck import Deck
-from Card import Card
 from random import randint, choice
 
 class GameDeckRandom(Game):
