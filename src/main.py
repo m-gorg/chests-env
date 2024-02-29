@@ -10,6 +10,6 @@ game = GameNodeckRandom([' 2', ' 3', ' 4', ' 5', ' 6'],
 
 game.start()
 
-# while True:
-#     if game.step():
-#         break
+while True:
+    if game.step():
+        break

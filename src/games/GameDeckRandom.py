@@ -20,6 +20,7 @@ class GameDeckRandom(Game):
     def step(self):
         current_player = self._players[self.current_player_id]
 
+        # get random target
         while True:
 
             if self.responce != 3:
@@ -34,7 +35,7 @@ class GameDeckRandom(Game):
 
         target = self._players[target_id]
         turn = current_player.get_turn(self, self.rel_target_id)
-            
+
         # turn validation
         valid = False
         for card in current_player.cards:
@@ -60,6 +61,7 @@ class GameDeckRandom(Game):
 
         self.check_for_chests(current_player)
 
+        # select players that are leaving the game
         for i, player in enumerate(self._players):
             if len(player.cards) == 0 and self._deck.size == 0:
                 self.out[i] = True

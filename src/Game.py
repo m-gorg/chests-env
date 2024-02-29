@@ -7,6 +7,9 @@ class Game:
 
         self._players = players
         self.out = [False for _ in range(len(players))]
+
+        self.ranks = ranks
+        self.suits = suits
         
         for p in players:
             p.ranks = ranks
