@@ -21,7 +21,7 @@ class GameNodeckRandom(Game):
             self.check_for_chests(player)
 
     
-    def step(self):
+    def step(self, turn=None):
         current_player = self._players[self.current_player_id]
 
         # get random target
@@ -38,7 +38,9 @@ class GameNodeckRandom(Game):
                 break
     
         target = self._players[target_id]
-        turn = current_player.get_turn(self, self.rel_target_id)
+
+        if turn == None:
+            turn = current_player.get_turn(self, self.rel_target_id)
 
         # turn validation
         valid = False
