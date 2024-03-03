@@ -2,10 +2,13 @@ from Deck import Deck
 from Card import Card
 
 class Game:
-    def __init__(self, ranks, suits, players):
+    def __init__(self, ranks, suits, players, verbose):
+        self.verbose = verbose
+
         self._deck = Deck(ranks, suits)
 
         self._players = players
+        self.players_num = len(players)
         self.out = [False for _ in range(len(players))]
 
         self.ranks = ranks
@@ -34,7 +37,6 @@ class Game:
     def next_player_id(self, player_id):
         id = (player_id + 1) % len(self._players)
         if not self.out[id] and self.current_player_id != id:
-            print(id)
             return id
         else:
             return self.next_player_id(id)

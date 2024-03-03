@@ -3,8 +3,6 @@ class Player:
         self.cards: list = []
         self.chests = []
         self.id = id
-        self.suits = None
-        self.ranks = None
 
 
     def add_card(self, card):

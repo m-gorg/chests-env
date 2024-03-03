@@ -9,3 +9,7 @@ class Turn:
 
     def __str__(self) -> str:
         return f"Rank: {self.rank}; Count: {self.count}; Suits: {self.suits}."
+    
+
+    # def __eq__(self, x) -> bool:
+    #     if self.target

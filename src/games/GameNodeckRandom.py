@@ -7,8 +7,8 @@ from random import randint, choice
 
 class GameNodeckRandom(Game):
     
-    def __init__(self, ranks: list, suits: list, players: Player):
-        super().__init__(ranks, suits, players)
+    def __init__(self, ranks, suits, players, verbose=False):
+        super().__init__(ranks, suits, players, verbose)
 
     def start(self):
         self.log = []
@@ -19,12 +19,6 @@ class GameNodeckRandom(Game):
                 player.add_card(self._deck.draw())
             
             self.check_for_chests(player)
-
-
-        for player in self._players:
-            for card in player.cards:
-                print(card)
-            print("")
 
     
     def step(self):
@@ -56,7 +50,8 @@ class GameNodeckRandom(Game):
         if not valid:
             raise Exception("Invalid turn")
         
-        print(f"{current_player.id} -> {target.id}: {turn}")
+        if self.verbose:
+            print(f"{current_player.id} -> {target.id}: {turn}")
         # get responce from turn
         self.responce = self.turn_responce(turn, target)
 
@@ -80,12 +75,12 @@ class GameNodeckRandom(Game):
         if self.out.count(True) > 2:
             return True
 
-        # print stuff
-        for player in self._players:
-            print(f"\nPlayer {player.id}:")
-            for card in player.cards:
-                print(card, end=" ")
-        print("")
+        if self.verbose:
+            for player in self._players:
+                print(f"\nPlayer {player.id}:")
+                for card in player.cards:
+                    print(card, end=" ")
+            print("")
 
         if self.responce != 3:
             self.current_player_id = self.next_player_id(self.current_player_id)

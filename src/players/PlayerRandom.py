@@ -2,6 +2,7 @@ from Player import Player
 from random import randint, sample
 from Turn import Turn
 
+
 class PlayerRandom(Player):
 
     def __init__(self, id):
@@ -13,6 +14,8 @@ class PlayerRandom(Player):
         target = target
         rank = self.cards[randint(0, len(self.cards)) - 1].rank
         count = randint(1, 3)
-        suits = sample(self.suits, count)
+        suits = sample(game.suits, count)
 
-        return Turn(target, rank, count, suits)
+        turn = Turn(target, rank, count, suits)
+
+        return turn
