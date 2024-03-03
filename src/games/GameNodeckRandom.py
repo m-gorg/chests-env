@@ -55,10 +55,23 @@ class GameNodeckRandom(Game):
         # get responce from turn
         self.responce = self.turn_responce(turn, target)
 
+
         # trasfer cards and log
-        if self.responce == 3:
-            self.transfer_cards(current_player, target, turn)
-        self.log.append([self.current_player_id, turn, target])
+        mask_turn = turn
+        match self.responce:
+            case 3: # guessed right
+                self.transfer_cards(current_player, target, turn)
+            case 2: # wrong suit(s)
+                pass
+            case 1: # wroung amount
+                mask_turn.suits = None
+            case 0: # no cards of given rank
+                mask_turn.suits = None
+                mask_turn.count = None
+
+
+        self.log.append([self.current_player_id, mask_turn, self.responce])
+        
 
         self.check_for_chests(current_player)
 
@@ -67,7 +80,7 @@ class GameNodeckRandom(Game):
             if len(player.cards) == 0 and self._deck.size == 0:
                 self.out[i] = True
 
-                
+        
                 if self.current_player_id == i and self.out.count(True) <= 2:
                     self.current_player_id = self.next_player_id(self.current_player_id)
 
