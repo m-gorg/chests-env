@@ -72,7 +72,10 @@ class GameNodeckRandom(Game):
                 mask_turn.count = None
 
 
-        self.log.append([self.current_player_id, mask_turn, self.responce])
+        self.log.append({'player': self.current_player_id, 
+                         'target': target.id,
+                         'turn': mask_turn, 
+                         'responce': self.responce})
         
 
         self.check_for_chests(current_player)

@@ -1,6 +1,6 @@
 class Player:
     def __init__(self, id):
-        self.cards: list = []
+        self.cards = []
         self.chests = []
         self.id = id
 

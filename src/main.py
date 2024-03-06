@@ -1,10 +1,12 @@
-from games.GameDeckRandom import GameDeckRandom
 from games.GameNodeckRandom import GameNodeckRandom
+from players.PlayerProbabilistic import PlayerProbabilistic
 from players.PlayerRandom import PlayerRandom
-from players.PlayerRandomNoReapeat import PlayerRandomNoRepeat
 
 
-players = [PlayerRandom(i) for i in range(4)]
+players = [PlayerRandom(0),
+           PlayerRandom(1),
+           PlayerRandom(2),
+           PlayerProbabilistic(3)]
 
 game = GameNodeckRandom([' 2', ' 3', ' 4', ' 5', ' 6'],
             ['♠', '♥', '♣', '♦'],
@@ -17,7 +19,7 @@ while True:
     if game.step():
         break
 
-for i in game.log:
-    for j in i:
-        print(j, end="  ")
-    print("")
+game.summary()
+
+# for i in game.log:
+#     print(i)

@@ -79,3 +79,9 @@ class Game:
 
     def step(self):
         raise Exception(NotImplementedError)
+    
+
+    def summary(self):
+        for player in self._players:
+            print(f"Player {player.id} chests:")
+            print(*player.chests)
