@@ -19,6 +19,7 @@ class GameNodeckRandom(Game):
                 player.add_card(self._deck.draw())
             
             self.check_for_chests(player)
+            self._starting_state[player.id] = [_ for _ in player.cards]
 
     
     def step(self, turn=None):

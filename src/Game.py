@@ -19,6 +19,7 @@ class Game:
             p.suits = suits
 
         self.responce = None
+        self._starting_state = {}
 
 
     def check_for_chests(self, player):
@@ -82,6 +83,14 @@ class Game:
     
 
     def summary(self):
+
+        summary = {}
+        chests = {}
+
         for player in self._players:
-            print(f"Player {player.id} chests:")
-            print(*player.chests)
+            chests[player.id] = player.chests
+
+        summary['start'] = self._starting_state
+        summary['chests'] = chests
+
+        return summary
