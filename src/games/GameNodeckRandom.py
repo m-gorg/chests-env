@@ -11,6 +11,7 @@ class GameNodeckRandom(Game):
         super().__init__(ranks, suits, players, verbose)
 
     def start(self):
+        self.i = 0
         self.log = []
         self.current_player_id = 0
 
@@ -23,6 +24,12 @@ class GameNodeckRandom(Game):
 
     
     def step(self, turn=None):
+        # self.i += 1
+        # if self.i > 100:
+        #     self.verbose = True
+        #     for player in self._players:
+        #         print(player.amounts)
+
         current_player = self._players[self.current_player_id]
 
         # get random target
@@ -85,12 +92,11 @@ class GameNodeckRandom(Game):
         for i, player in enumerate(self._players):
             if len(player.cards) == 0 and self._deck.size == 0:
                 self.out[i] = True
-
         
                 if self.current_player_id == i and self.out.count(True) <= 2:
                     self.current_player_id = self.next_player_id(self.current_player_id)
 
-         # check for end of game 
+        # check for end of game 
         if self.out.count(True) > 2:
             return True
 

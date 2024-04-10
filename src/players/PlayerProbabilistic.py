@@ -3,7 +3,7 @@ from random import randint
 from Turn import Turn
 from Card import Card
 
-ranks = [' 2', ' 3', ' 4', ' 5', ' 6', ' 7', ' 8']
+ranks = [' 2', ' 3', ' 4', ' 5', ' 6']
 suits = ['♠', '♥', '♣', '♦']
 
 class PlayerProbabilistic(Player): # not susceptible to bluff
@@ -89,7 +89,6 @@ class PlayerProbabilistic(Player): # not susceptible to bluff
                     if target == 3: continue 
 
                     if log['turn'].rank in [card.rank for card in self.target_cards] and log['turn'].count in self.amounts[target][log['turn'].rank]: # do we care?
-                        
                         self.amounts[target][log['turn'].rank].remove(log['turn'].count) # remove wrong amount from oponent's amount list
 
                     pass
@@ -169,11 +168,21 @@ class PlayerProbabilistic(Player): # not susceptible to bluff
 
             self.target_cards = target_cards
 
-        # print("")
-        # print(*self.weights)
-        # print("")
-        # print(*self.amounts)
-        # print("")
+            # fix wrong amounts
+            for i in range(3): # 3 oponetns
+                for key, value in self.amounts[i].items():
+                    for v in value:
+                        if v > 3:
+                            self.amounts[i][key].remove(v)
+
+                    if value == []:
+                        self.amounts[i][key] = [1, 2, 3]
+
+        print("")
+        print(*self.weights)
+        print("")
+        print(*self.amounts)
+        print("")
         # check game log to adjust weights
         self.update_weights(game)
 
