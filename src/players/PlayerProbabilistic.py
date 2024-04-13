@@ -178,14 +178,13 @@ class PlayerProbabilistic(Player): # not susceptible to bluff
                     if value == []:
                         self.amounts[i][key] = [1, 2, 3]
 
-        print("")
-        print(*self.weights)
-        print("")
-        print(*self.amounts)
-        print("")
+        # print("")
+        # print(*self.weights)
+        # print("")
+        # print(*self.amounts)
+        # print("")
         # check game log to adjust weights
         self.update_weights(game)
-
 
         # select highest probability card
         max_p = -1

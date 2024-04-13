@@ -11,9 +11,10 @@ class GameNodeckRandom(Game):
         super().__init__(ranks, suits, players, verbose)
 
     def start(self):
-        self.i = 0
         self.log = []
         self.current_player_id = 0
+        self.rel_target_id = randint(0, len(self._players) - 2)
+        self.target_id = (self.current_player_id + self.rel_target_id + 1) % len(self._players)
 
         for player in self._players:
             for _ in range(int(len(self.ranks) * len(self.suits) / len(self._players))):
@@ -31,24 +32,13 @@ class GameNodeckRandom(Game):
         #         print(player.amounts)
 
         current_player = self._players[self.current_player_id]
-
-        # get random target
-        while True:
-
-            if self.responce != 3:
-                self.rel_target_id = randint(0, len(self._players) - 2)
-            else:
-                self.rel_target_id = self.next_target(self.rel_target_id)
-
-            target_id = (self.current_player_id + self.rel_target_id + 1) % len(self._players)
-
-            if not self.out[target_id]:
-                break
     
-        target = self._players[target_id]
+        target = self._players[self.target_id]
 
+        t = current_player.get_turn(self, self.rel_target_id)
+        
         if turn == None:
-            turn = current_player.get_turn(self, self.rel_target_id)
+            turn = t
 
         # turn validation
         valid = False
@@ -109,5 +99,19 @@ class GameNodeckRandom(Game):
 
         if self.responce != 3:
             self.current_player_id = self.next_player_id(self.current_player_id)
+
+        # get random target
+
+        while True:
+
+            if self.responce != 3:
+                self.rel_target_id = randint(0, len(self._players) - 2)
+            else:
+                self.rel_target_id = self.next_target(self.rel_target_id)
+
+            self.target_id = (self.current_player_id + self.rel_target_id + 1) % len(self._players)
+
+            if not self.out[self.target_id]:
+                break
 
         return False

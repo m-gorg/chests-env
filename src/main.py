@@ -21,7 +21,7 @@ def init():
 
 
 games = []
-n = 1
+n = 100
 
 if __name__ == "__main__":
 
